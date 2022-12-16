@@ -1,0 +1,345 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Conditions</title>
+    <meta name="description" content="Documentation for Kanal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/assets/normalize.css?v=1671215463"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/doctave-style.css?v=1671215463"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/katex.css?v=1671215463" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/prism-ghcolors.css?v=1671215463"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1671215463";
+        var BASE_PATH = "/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/">
+                        Kanal
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a href="/1_Manual">1_Manual</a></li>
+            
+                <ul>
+    
+        <li><a class="active" href="/1_Manual/Conditions">Conditions</a></li>
+        
+    
+        <li><a href="/1_Manual/Core">Core</a></li>
+        
+    
+        <li><a href="/1_Manual/Interfaces">Interfaces</a></li>
+        
+    
+        <li><a href="/1_Manual/Routing">Routing</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/2_Development">2_Development</a></li>
+            
+                <ul>
+    
+        <li><a href="/2_Development/PluginDevelopment">Plugin Development</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/3_Ecosystem">3_Ecosystem</a></li>
+            
+                <ul>
+    
+        <li><a href="/3_Ecosystem/PluginList">Plugin List</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/Batteries">Batteries</a></li>
+            
+        
+            <li><a href="/Examples">Examples</a></li>
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <h1 id="introduction-to-conditions">Introduction to conditions</h1>
+<p>Conditions are basically blocks that decide whether this particular <code>input</code> is going inside this particular
+route with this particular condition.</p>
+<p>Let's take this route, for example:</p>
+<pre><code class="language-ruby">core.router.configure do
+  on :body, :contains_hello do
+    respond do
+      body "Hello to you!"
+    end
+  end
+end
+</code></pre>
+<p>The part <code>:body</code> is condition pack named :body, and part <code>:contains_hello</code> is condition named :contains_hello</p>
+<p>To create this condition pack and condition we would write this code:</p>
+<pre><code class="language-ruby">core.add_condition_pack :body do
+  add_condition :contains_hello do
+    met? |input, core, argument| do
+      input.body.include? "hello"
+    end
+  end
+end
+</code></pre>
+<h1 id="condition-pack">Condition pack</h1>
+<p>Conditions are always stored in a pack. This way, pack serves as a namespace where your
+conditions are stored.</p>
+<p>Thanks to this, different packs can have conditions with the same name.</p>
+<p>For example, we can have condition pack :phone with
+condition :valid and can have condition pack :email with condition :valid.
+Or another example - pack :video with condition max_size: and pack :image with condition max_size:</p>
+<pre><code class="language-ruby">core.add_condition_pack :condition_pack_name do
+  # Here you write your conditions with handy DSL
+end
+</code></pre>
+<h1 id="conditions">Conditions</h1>
+<h2 id="conditions-without-arguments">Conditions without arguments</h2>
+<pre><code class="language-ruby">core.add_condition_pack :condition_pack_name do
+  add_condition :condition_name do
+    ...
+  end
+end
+</code></pre>
+<p>This is syntax for simple condition without argument. Meaning that the behaviour of condition
+will be specified inside condition and basically cannot be affected by some kind of argument.
+Examples of possible condition packs with conditions without arguments:</p>
+<ul>
+<li>
+<p>:file</p>
+<ul>
+<li>:exists</li>
+<li>:mp3</li>
+<li>:ogg</li>
+<li>:jpg</li>
+<li>:bmp</li>
+</ul>
+</li>
+<li>
+<p>:body</p>
+<ul>
+<li>:has_forbidden_words</li>
+<li>:empty</li>
+<li>:has_emoji</li>
+</ul>
+</li>
+</ul>
+<h2 id="conditions-with-arguments">Conditions with arguments</h2>
+<p>Conditions with arguments provide the needed flexibility for specifying
+argument when you are writing your routes.</p>
+<p>This is the syntax of writing conditions with arguments:</p>
+<pre><code class="language-ruby">core.add_condition_pack :condition_pack_name do
+  add_condition :condition_name do
+    with_argument # This part is important
+
+    ...
+  end
+end
+</code></pre>
+<p>As you can see, the only difference here is the DSL part <code>with_argument</code></p>
+<p>By writing this you mark
+condition as condition with argument.</p>
+<p>Thanks to this you will be able to write conditions in your routes like this:</p>
+<pre><code class="language-ruby">...
+core.router.configure do
+  on :body, contains: "Hey!" do
+    ...
+  end
+end
+...
+</code></pre>
+<p>As you can see, we pass name of condition and it's argument as it was simple named parameter.</p>
+<h2 id="met?-block-arguments">met? block arguments</h2>
+<p>Met block is the block which will actually check whether conditions are met for arguments provided.</p>
+<p>To complete the previous example of conditions with arguments -
+here how condition with :body and :contains can be written</p>
+<pre><code class="language-ruby">core.add_condition_pack :body
+  add_condition :contains do
+    met? do |input, core, argument| # 3 arguments provided to the block
+      input.body.include? argument
+    end
+  end
+end
+</code></pre>
+<p>As you probably read already in this documentation, met block is provided with 3 arguments:</p>
+<ul>
+<li>input</li>
+<li>core</li>
+<li>argument</li>
+</ul>
+<h3 id="input">Input</h3>
+<p>This is the input you insert into the routers method .create_output_for_input</p>
+<p>This input will be provided to the each route and there it will be checked against the
+saved into the condition met block.</p>
+<p>This is your main source of the checks, validations etc.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+It is fare to say that you can have conditions with met blocks not utilizing input argument at all.
+For example something like pack :time and condition :evening. It will simply check the current time
+</p>
+</div><h3 id="core">Core</h3>
+<p>Core provided as a source of the available parts of the core, possibility to get services
+(more about them on Services documentation page), check whether some plugin registered and so on.</p>
+<p>If you need to utilize the core as argument in met block, basically you know what you are doing.</p>
+<p>You are getting some service, or checking if this bot has some plugin registered for debug purpose.</p>
+<h3 id="argument">Argument</h3>
+<p>This one is provided when you use <code>conditions WITH arguments</code>. When you are using
+conditions without arguments, this block would be just nil.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+You can pass as argument anything you want. It is not limited to any primitive data type.
+You can even pass there instance of a class, or a list, or lambda etc.
+</p>
+</div><h1 id="conclusion">Conclusion</h1>
+<p>Conditions allow you to direct input in your routes to a different places.</p>
+<p>They are a powerful way to avoid writing numerous if/else inside one block of
+route and separate them into different routes.</p>
+<p>By creating condition pack and conditions within you basically create a reusable
+code which can be utilized in multiple routes and even projects.</p>
+
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#introduction-to-conditions'>Introduction to conditions</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#condition-pack'>Condition pack</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#conditions'>Conditions</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#conditions-without-arguments'>Conditions without arguments</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#conditions-with-arguments'>Conditions with arguments</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#met?-block-arguments'>met? block arguments</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#input'>Input</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#core'>Core</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#argument'>Argument</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#conclusion'>Conclusion</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/assets/katex.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/mermaid.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/elasticlunr.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/prism.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/doctave-app.js?v=1671215463"></script>
+
+    
+</body>
+
+</html>

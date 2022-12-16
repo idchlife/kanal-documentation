@@ -1,0 +1,475 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Routing</title>
+    <meta name="description" content="Documentation for Kanal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/assets/normalize.css?v=1671215463"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/doctave-style.css?v=1671215463"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/katex.css?v=1671215463" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/prism-ghcolors.css?v=1671215463"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1671215463";
+        var BASE_PATH = "/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/">
+                        Kanal
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a href="/1_Manual">1_Manual</a></li>
+            
+                <ul>
+    
+        <li><a href="/1_Manual/Conditions">Conditions</a></li>
+        
+    
+        <li><a href="/1_Manual/Core">Core</a></li>
+        
+    
+        <li><a href="/1_Manual/Interfaces">Interfaces</a></li>
+        
+    
+        <li><a class="active" href="/1_Manual/Routing">Routing</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/2_Development">2_Development</a></li>
+            
+                <ul>
+    
+        <li><a href="/2_Development/PluginDevelopment">Plugin Development</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/3_Ecosystem">3_Ecosystem</a></li>
+            
+                <ul>
+    
+        <li><a href="/3_Ecosystem/PluginList">Plugin List</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/Batteries">Batteries</a></li>
+            
+        
+            <li><a href="/Examples">Examples</a></li>
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <h1 id="routing">Routing</h1>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+If you are reading this first time, please don't forget to read chapter about Router behaviour,
+because without that information you most likely will stumble on some unexpected behaviour, without
+knowing first how routes are processed.
+</p>
+</div>
+<p>Routing in Kanal is written using handy DSL like this:</p>
+<pre><code class="language-ruby">...
+core.router.configure do
+  on :body, contains: "my name is" do
+    respond do
+      body "Hey good to know!"
+    end
+  end
+
+  on :body, contains: "what is the weather today?" do
+    respond do
+      weather = core.services.get(:weather_service).get_weather
+
+      body "Todays weather is: #{weather}"
+    end
+  end
+end
+...
+</code></pre>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+If you are wondering what is the core.services and why is there core available,
+please check more in <code>respond block</code> documentation and page about Services.
+</p>
+</div><h1 id="router.configure-and-dsl">Router.configure and DSL</h1>
+<p>When you pass block of code into the <code>router.configure</code> method, you
+are presented with a DSL methods that helps you to write your routes.</p>
+<p>At the moment these DSL methods are:</p>
+<ul>
+<li>on</li>
+</ul>
+<h2 id="on">on</h2>
+<p>This method accepts 3 arguments. Well, 2 arguments and a block</p>
+<ul>
+<li>First argument is a name of a condition pack, a Symbol</li>
+<li>Second argument is a name of a condition. It can be written in 2 ways, without argument or with argument,
+depends on conditions (whether it accepts argument)</li>
+</ul>
+<pre><code class="language-ruby">...
+# When condition does not require argument
+on :condition_pack_name, :condition_name do
+
+end
+
+# When condition requires argument
+on :condition_pack_name, condition_name: you_argument do
+
+end
+...
+</code></pre>
+<h1 id="default-response">Default response</h1>
+<p>Default response is a vital part of a router and it should be provided.</p>
+<p>Without default response - Kanal won't start, its router will raise an exception asking you
+to provide default response.</p>
+<p>You can specify default response like this:</p>
+<pre><code class="language-ruby">core.router.default_response do
+  # Here you can write code like you would normally write code in respond block.
+  # With access to input, core and setting output parameters
+end
+</code></pre>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+Default response is required for router to operate, because if not suitable route
+found, router will refer to the provided default response.</p>
+<p>Usually default response looks like "Unfortunately, I did not quite get this. I can understand these commands: ... ... ..."
+</p>
+</div><h1 id="nested-routes">Nested routes</h1>
+<p>You can have nested routes. It means you can write something like this:</p>
+<pre><code class="language-ruby">core.router.configure do
+  on :body, starts_with: "tell me" do
+    on :body, ends_with: "news" do
+      respond do
+        body "News today as good as they get!"
+      end
+    end
+
+    on :body, ends_with: "joke" do
+      body core.services.get(:jokes_service).random_joke
+    end
+  end
+
+  on :body, contains: "what is the weather today?" do
+    respond do
+      weather = core.services.get(:weather_service).get_weather
+
+      body "Todays weather is: #{weather}"
+    end
+  end
+end
+</code></pre>
+<p>You can have as many nesting layers as you want.</p>
+<div class="callout warning"><p class="callout-title">ATTENTION</p>
+<p>
+Beware, when you are using nested routes: if route contains at least 1 nested route, you can no
+longer use <code>respond</code> block inside.</p>
+<p>Your route can contains one of the 2: nested route(s) <strong>OR</strong> respond block</p>
+<p>If you wonder about the default response in the route, if no nested routes were suitable with their conditions,
+please read further on this page how router machinery works and how to control your input flow in routes.
+</p>
+</div><h1 id="respond-block">Respond block</h1>
+<p>In your route, you can specify <code>respond block</code></p>
+<p>Like this:</p>
+<pre><code class="language-ruby">...
+on :body, ends_with: "news" do
+  # This is the respond block we are talking about
+  respond do
+    body "News today as good as they get!"
+  end
+end
+...
+</code></pre>
+<h2 id="setting-output-parameters">Setting output parameters</h2>
+<p>Respond block allows you to set registered in output parameters. Meaning if you registered parameter
+<code>block</code>, it will be available as DSL method <code>block</code> inside. You specify parameter value by using method syntax,
+but not variable syntax.</p>
+<pre><code class="language-ruby"># Wrong
+body = "Somebody"
+
+# Right
+body "Somebody"
+</code></pre>
+<h2 id="accessing-input,-core">Accessing input, core</h2>
+<p>Kanal provides you with <code>input</code> and <code>core</code> inside respond block.</p>
+<p>Using <code>input</code>, you can have additional checks and validations inside and give response to user accordingly.</p>
+<p>Like this:</p>
+<pre><code class="language-ruby">on :body, ends_with: "news" do
+  # This is the respond block we are talking about
+  respond do
+    user_said = input.body
+
+    body "You said: #{user_said} and my response is: News today as good as they get!"
+  end
+end
+</code></pre>
+<p>Why there is <code>core</code> available? So you can access anything that can core provide.</p>
+<p>For example, if you registered service named :weather_provider, you can acces it there and use it</p>
+<pre><code class="language-ruby">on :body, contains: "weather" do
+  # This is the respond block we are talking about
+  respond do
+    weather = core.services.get(:weather_provider).get_current_weather
+
+    body "Current weather is: #{weather}"
+  end
+end
+</code></pre>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+Please be aware of examples like this weather example, that usually when someone wants to know
+weather at their location, it is required to get users location in one way or another.</p>
+<p>It is of course possible, if user sends location via some bot or writes location by hand (lat/long or name of city),
+but this is topic for another documentation page about integrations with bots etc.</p>
+<p>For the sake of example let's pretend that user wants to know weather at some kind of default location for everyone,
+without providing the location manually.
+</p>
+</div><h1 id="router-expected-behaviour-and-how-it-operates">Router expected behaviour and how it operates</h1>
+<p>Basically router stores routes in a tree. Well, for some people it will be obvious,
+looking at how you write your routes.</p>
+<p>What is a tree? Imagine, there is a root with branches coming out of it, and then there are branches coming out of branches etc. etc.</p>
+<p>When input is provided to the method <code>core.router.create_output_for_input</code> router goes from root to all the branches (routes),
+test input against conditions in those routes and finally finds a suitable route or refers to the default response.</p>
+<p>Consider this router configuration:</p>
+<pre><code class="language-ruby">core.router.default_response do
+  body "I can't understand you!"
+end
+
+core.router.configure do
+  on :body, contains: "hey" do
+    respond do
+      body "Hello to you!"
+    end
+  end
+
+  on :body, contains: "tell me" do
+    on :body, contains: "weather" do
+      respond do
+        body "Weather is fine!"
+      end
+    end
+
+    on :body, contains: "news" do
+      respond do
+        body "News are great!"
+      end
+    end
+  end
+end
+</code></pre>
+<p>Now, let's imagine this code with comments, showing which input will get which output</p>
+<pre><code class="language-ruby">input = core.create_input
+input.body = "Hello"
+
+output = core.router.create_output_for_input input
+
+# output.body will be "I can't understand you!"
+
+input = core.create_input
+input.body = "tell me weather"
+
+output = core.router.create_output_for_input input
+
+# output.body will be "Weather is fine!"
+
+input = core.create_input
+input.body = "tell me something"
+
+output = core.router.create_output_for_input input
+
+# output.body will be "I can't understand you!"
+</code></pre>
+<p>So far so good. But what happens, if there are 2 routes sitting next to
+each other that have suitable condition for our input? But, only second route contains suitable condition inside.</p>
+<h2 id="when-2-adjacent-routes-accepts-same-input-(but-inner-routes-do-not)">When 2 adjacent routes accepts same input (but inner routes do not)</h2>
+<p>Let's take this example configuration:</p>
+<pre><code class="language-ruby">core.router.default_response do
+  body "I can't understand you!"
+end
+
+core.router.configure do
+  on :body, contains: "tell me" do
+    on :body, contains: "weather" do
+      respond do
+        body "Weather is fine!"
+      end
+    end
+  end
+
+  on :body, contains: "never" do
+    on :body, contains: "forever" do
+      respond do
+        body "This is really interesting"
+      end
+    end
+  end
+end
+</code></pre>
+<p>This doesn't seem so bad, we see different conditions for these 2 routes, but...</p>
+<p>Imagine this code with input:</p>
+<pre><code class="language-ruby">input = core.create_input
+input.body = "tell me never"
+
+output = core.router.create_output_for_input input
+
+# output.body will be "This is really interesting"
+</code></pre>
+<p>As you can see, router successfully found the route for this input!</p>
+<p>How did it find it?</p>
+<p>Well, first it tried route with condition <code>contains: "weather"</code>. It got inside this route,
+and tried inner route for <code>contains: weather</code> and got condition check failed.</p>
+<p>What happened next? Router got back up in the routes branches and started checking next routes!</p>
+<p>And next route and inner route had condition that successfully validated our input!</p>
+<p>Remember this behaviour, router does not stop in any inner route branches if it does not find
+suitable route. It traverses back up and tests all other adjacent branches.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+Remember, routes are traversed and tested for condition in the order they were written in the
+configure block. </p>
+<p>Meaning first defined - first tested for.
+</p>
+</div>
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#routing'>Routing</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#router.configure-and-dsl'>Router.configure and DSL</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#on'>on</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#default-response'>Default response</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#nested-routes'>Nested routes</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#respond-block'>Respond block</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#setting-output-parameters'>Setting output parameters</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#accessing-input,-core'>Accessing input, core</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#router-expected-behaviour-and-how-it-operates'>Router expected behaviour and how it operates</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#when-2-adjacent-routes-accepts-same-input-(but-inner-routes-do-not)'>When 2 adjacent routes accepts same input (but inner routes do not)</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/assets/katex.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/mermaid.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/elasticlunr.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/prism.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/doctave-app.js?v=1671215463"></script>
+
+    
+</body>
+
+</html>

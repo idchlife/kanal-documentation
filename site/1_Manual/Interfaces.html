@@ -1,0 +1,199 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Interfaces</title>
+    <meta name="description" content="Documentation for Kanal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/assets/normalize.css?v=1671215463"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/doctave-style.css?v=1671215463"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/katex.css?v=1671215463" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/prism-ghcolors.css?v=1671215463"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1671215463";
+        var BASE_PATH = "/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/">
+                        Kanal
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a href="/1_Manual">1_Manual</a></li>
+            
+                <ul>
+    
+        <li><a href="/1_Manual/Conditions">Conditions</a></li>
+        
+    
+        <li><a href="/1_Manual/Core">Core</a></li>
+        
+    
+        <li><a class="active" href="/1_Manual/Interfaces">Interfaces</a></li>
+        
+    
+        <li><a href="/1_Manual/Routing">Routing</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/2_Development">2_Development</a></li>
+            
+                <ul>
+    
+        <li><a href="/2_Development/PluginDevelopment">Plugin Development</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/3_Ecosystem">3_Ecosystem</a></li>
+            
+                <ul>
+    
+        <li><a href="/3_Ecosystem/PluginList">Plugin List</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/Batteries">Batteries</a></li>
+            
+        
+            <li><a href="/Examples">Examples</a></li>
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <h1 id="interfaces">Interfaces</h1>
+<p>Interfaces in the Kanal ecosystem are special objects that inherit <code>Kanal::Core::Interfaces::Interface</code>
+and provide input/output management for router with... something from outside :)</p>
+<p>What does it mean? Well, we have core, router, input, output, condition etc but...</p>
+<p>What does spawn an input for router? Where goes output after router created it?</p>
+<p>The anwer is: Kanal interfaces!</p>
+<p>Interfaces usually contain code that connects your router to some external service, library, etc.</p>
+<p>For example, there can be <code>TelegramInterface</code>. (actually it does already exists, you can use it, read more in Ecosystem part of documentation)</p>
+<h1 id="possible-manual-for-interfaces-out-there">Possible manual for interfaces out there</h1>
+<p>All interfaces should inherit the core interface class of the Kanal: <code>Kanal::Core::Interfaces::Interface</code>.</p>
+<p>(more about that in interface development section)</p>
+<p>Meanin that they should have basic configuration values passed in constructor or
+in some method (e.g. bot_token in Telegram) and method <code>start</code>.</p>
+<p>They also require core, provided by you.</p>
+<p>Often interfaces have some plugins for Kanal, written specifically for external service in use in those interfaces.</p>
+<p>Meaning core you provided would be used to register those plugins, as well as input parameters, output parameters.</p>
+<p><code>start</code> method should be the starting point for interfaces. For example for TelegramInterface, <code>start</code>
+method would connect to telegram api, using additional library for this (e.g. telegram-bot-ruby).</p>
+<p>After connecting, interface would get messages from telegram and create input for router, with
+registered for this parameters.</p>
+<p>After getting output from your router, interface would use telegram library to send router output,
+converting it into compatible response for telegram library.</p>
+
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#interfaces'>Interfaces</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#possible-manual-for-interfaces-out-there'>Possible manual for interfaces out there</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/assets/katex.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/mermaid.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/elasticlunr.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/prism.js?v=1671215463"></script>
+    <script type="text/javascript" src="/assets/doctave-app.js?v=1671215463"></script>
+
+    
+</body>
+
+</html>
