@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Examples</title>
+    <title>Interfaces</title>
     <meta name="description" content="Documentation for Kanal">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -79,7 +79,7 @@
         <li><a href="/kanal-documentation/Manual/Core">Core</a></li>
         
     
-        <li><a href="/kanal-documentation/Manual/Interfaces">Interfaces</a></li>
+        <li><a class="active" href="/kanal-documentation/Manual/Interfaces">Interfaces</a></li>
         
     
         <li><a href="/kanal-documentation/Manual/Routing">Routing</a></li>
@@ -114,7 +114,7 @@
             <li><a href="/kanal-documentation/Batteries">Batteries</a></li>
             
         
-            <li><a class="active" href="/kanal-documentation/Examples">Examples</a></li>
+            <li><a href="/kanal-documentation/Examples">Examples</a></li>
             
         
     </ul>
@@ -131,7 +131,28 @@
 
             </div>
             <div class='doctave-content'>
-                <h1 id="examples">Examples</h1>
+                <h1 id="interfaces">Interfaces</h1>
+<p>Interfaces in the Kanal ecosystem are special objects that inherit <code>Kanal::Core::Interfaces::Interface</code>
+and provide input/output management for router with... something from outside :)</p>
+<p>What does it mean? Well, we have core, router, input, output, condition etc but...</p>
+<p>What does spawn an input for router? Where goes output after router created it?</p>
+<p>The anwer is: Kanal interfaces!</p>
+<p>Interfaces usually contain code that connects your router to some external service, library, etc.</p>
+<p>For example, there can be <code>TelegramInterface</code>. (actually it does already exists, you can use it, read more in Ecosystem part of documentation)</p>
+<h1 id="possible-manual-for-interfaces-out-there">Possible manual for interfaces out there</h1>
+<p>All interfaces should inherit the core interface class of the Kanal: <code>Kanal::Core::Interfaces::Interface</code>.</p>
+<p>(more about that in interface development section)</p>
+<p>Meanin that they should have basic configuration values passed in constructor or
+in some method (e.g. bot_token in Telegram) and method <code>start</code>.</p>
+<p>They also require core, provided by you.</p>
+<p>Often interfaces have some plugins for Kanal, written specifically for external service in use in those interfaces.</p>
+<p>Meaning core you provided would be used to register those plugins, as well as input parameters, output parameters.</p>
+<p><code>start</code> method should be the starting point for interfaces. For example for TelegramInterface, <code>start</code>
+method would connect to telegram api, using additional library for this (e.g. telegram-bot-ruby).</p>
+<p>After connecting, interface would get messages from telegram and create input for router, with
+registered for this parameters.</p>
+<p>After getting output from your router, interface would use telegram library to send router output,
+converting it into compatible response for telegram library.</p>
 
             </div>
             <div class='sidebar-right'>
@@ -140,7 +161,11 @@
                     <ul>
                         
                         <li class='page-nav-level-1'>
-                            <a href='#examples'>Examples</a>
+                            <a href='#interfaces'>Interfaces</a>
+                        </li>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#possible-manual-for-interfaces-out-there'>Possible manual for interfaces out there</a>
                         </li>
                         
                     </ul>

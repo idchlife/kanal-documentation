@@ -1,3 +1,7 @@
+---
+title: Kanal Docs
+---
+
 Welcome to Kanal documentation!
 =============
 
