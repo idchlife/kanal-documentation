@@ -1,0 +1,520 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Kanal</title>
+    <meta name="description" content="Documentation for Kanal">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/assets/normalize.css?v=1671216925"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/doctave-style.css?v=1671216925"
+        media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/katex.css?v=1671216925" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/assets/prism-ghcolors.css?v=1671216925"
+        media="screen" />
+
+    <script>
+        var DOCTAVE_TIMESTAMP = "1671216925";
+        var BASE_PATH = "/";
+        var color = localStorage.getItem('doctave-color')
+
+        if (color === 'dark') {
+            document.getElementsByTagName('html')[0].classList.remove('light');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('html')[0].classList.remove('dark');
+            document.getElementsByTagName('html')[0].classList.add('light');
+        }
+    </script>
+
+    
+</head>
+
+<body>
+    <label for='menu-toggle-switch' class='menu-toggle-button'>
+        ☰
+    </label>
+    <input type="checkbox" id="menu-toggle-switch" value='0' />
+    <div class='page'>
+        <div class='header'>
+            <div class='logo'>
+                
+                <h2 class='project-name'>
+                    <a href="/">
+                        Kanal
+                    </a>
+                </h2>
+            </div>
+            <div class='search'>
+                <form id='search-form'>
+    <input type='text' id='search-box' autocomplete="off" placeholder="Search..."></input>
+    <span class='search-icon'>S</span>
+    <ul id='search-results'></ul>
+</form>
+
+            </div>
+            <div class='header-dummy-right'>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='sidebar-left'>
+                <nav class='site-nav'>
+    <ul>
+        
+            <li><a href="/1_Manual">1_Manual</a></li>
+            
+                <ul>
+    
+        <li><a href="/1_Manual/Conditions">Conditions</a></li>
+        
+    
+        <li><a href="/1_Manual/Core">Core</a></li>
+        
+    
+        <li><a href="/1_Manual/Interfaces">Interfaces</a></li>
+        
+    
+        <li><a href="/1_Manual/Routing">Routing</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/2_Development">2_Development</a></li>
+            
+                <ul>
+    
+        <li><a href="/2_Development/PluginDevelopment">Plugin Development</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/3_Ecosystem">3_Ecosystem</a></li>
+            
+                <ul>
+    
+        <li><a href="/3_Ecosystem/PluginList">Plugin List</a></li>
+        
+    
+</ul>
+
+            
+        
+            <li><a href="/Batteries">Batteries</a></li>
+            
+        
+            <li><a href="/Examples">Examples</a></li>
+            
+        
+    </ul>
+    <span id='light-dark-mode-switch'>
+        <svg xmlns="http://www.w3.org/2000/svg" id="dark-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="light-mode-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+    </span>
+</nav>
+
+            </div>
+            <div class='doctave-content'>
+                <h1 id="welcome-to-kanal-documentation!">Welcome to Kanal documentation!</h1>
+<p>It seems you are interested in building bots.
+Bots for Telegram, Slack, Discord, Cli, etc.</p>
+<p>Well, you came to the right place.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>On this page you can get the quick starting guide and shallow introduction to the building blocks.</p>
+<p>For more info you can check specific pages in this documentation.</p>
+<p>Please be advised. If at some point in the future using Kanal will become as easy as just requiring number
+of plugins and writing routes, it is still crucial to grasp on the concept of
+how Kanal works, it can help you in the future with writing routes properly, registering actually needed plugins and knowing what could've gone wrong if error happens.</p>
+</div><div class="callout warning"><p class="callout-title">ATTENTION</p>
+<p>
+This introduction does not utilize Batteries plugin (for the sake of practice and understanding), which is available in Kanal gem for usage and already has number of basic (but often crucial) conditions and parameters
+</p>
+</div><h2 id="installation">Installation</h2>
+<pre><code class="language-sh">gem install kanal
+</code></pre>
+<h2 id="basic-idea-of-kanal-and-how-it-works">Basic idea of Kanal and how it works</h2>
+<p>Kanal is just a... router. Well, router with batteries included.</p>
+<p>When you build a bot for some messenger, or a cli, or a frontend simulation of a
+messenger, you can imagine that there is some kind of <code>input</code> and after processing
+<code>input</code>, you expect an <code>output</code> given in return.</p>
+<div class="mermaid">
+graph TD;
+    Input--&gt;Router;
+    Router--&gt;Output;
+
+</div>
+<p>E.g.: you write "Hello" (this is <code>input</code>) to bot and it responds with "Hey there!" (this is <code>output</code>)</p>
+<h2 id="getting-started">Getting started</h2>
+<p>For starters you need to create the core</p>
+<pre><code class="language-ruby">require "kanal"
+
+core = Kanal::Core::Core.new
+</code></pre>
+<h2 id="input,-output-and-what-are-the-parameters-of-those-objects">Input, Output and what are the parameters of those Objects</h2>
+<h3 id="input">Input</h3>
+<p>Input is always created with the <code>core.create_input</code> method (not with instantiating object by yourself).</p>
+<pre><code class="language-ruby">require "kanal"
+
+core = Kanal::Core::Core::new
+input = core.create_input
+</code></pre>
+<h3 id="output">Output</h3>
+<p>Output is created inside the router of the core.</p>
+<pre><code class="language-ruby">require "kanal"
+
+core = Kanal::Core::Core.new
+input = core.create_input
+
+output = core.router.create_output_for_input input
+</code></pre>
+<p>If you are are wondering why there is no any kind of text in input, or any kind of data passed with input,
+please read documentation further to learn about input/output parameters.</p>
+<h3 id="parameters-for-input-and-output">Parameters for input and output</h3>
+<p>So, obviously, input has to have some kind of data, yes? In our case string, like in example with "Hello".</p>
+<p>Yes, of course. For this task Kanal has prepared the feature of registering parameters into the
+input and output objects via methods in core.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+Input/Output parameters in this case are not affiliated with the official programming languages term "parameter" (specified parameters for methods/function to be used as arguments at runtime).</p>
+<p>In Kanal, input/output parameters are allowed properties of objects that can be set or get
+</p>
+</div>
+<pre><code class="language-ruby">require "kanal"
+
+core = Kanal::Core::Core.new
+
+# Here we are registering parameter :body, which after that can be accessed with
+# input.body = ANY_VALUE // setter
+# input.body // getter
+core.register_input_parameter :body
+
+input = core.create_input
+# We can write here like this because we registered this parameter for input
+input.body = "Hello"
+
+# We are getting the output using the core.router, because
+# it's the router that tests input against all the configure routes - about that
+# you can learn by reading documentation further
+output = core.router.create_output_for_input input
+</code></pre>
+<p>And now for output. Pretty much the same way you can register output parameters:</p>
+<pre><code class="language-ruby">core.register_output_parameter :body
+</code></pre>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+Why does output object need parameters? To put it simply - so in one of the routes
+you can populate your output with the used parameter, by simply setting object property
+like in example with input above. You will learn more about that further on this page.
+</p>
+</div><div class="callout warning"><p class="callout-title">ATTENTION</p>
+<p>
+Without registering parameter for input and trying to set it in input object, you will
+get a runtime error telling you that you probably forgot to register that parameter.
+</p>
+</div><h2 id="conditions.-what-are-they?">Conditions. What are they?</h2>
+<p>Now, about conditions.</p>
+<p>Without them, router won't work properly.</p>
+<p>Barebones Kanal core does not have any conditions inside, but it has
+the ability for you to register them.</p>
+<p>What are they? They are basically true/false blocks that will tell the router if this
+particular route should be used.
+Consider this graph:</p>
+<div class="mermaid">
+graph TD
+    A["Input with .body=Hello"]
+    A --&gt; C{router}
+    C --&gt;|".body string contains Hello?"| D["Output with .body=Hey!"]
+    C --&gt;|".body string contains Friday?"| E["Output with .body=Wow already?"]
+</div>
+<p>As you can see, something checks which output should be given for specific input.</p>
+<p>Those are conditions, and conditions can be registered within the core.</p>
+<p>Conditions are registered within the <code>condition pack</code> that has specific name.</p>
+<p>Thanks to that you can separate a number of conditions by different pack names, for example:</p>
+<ul>
+<li>contains_day_of_week
+<ul>
+<li>friday</li>
+<li>tuesday</li>
+</ul>
+</li>
+<li>contains_name_of_tree
+<ul>
+<li>maple</li>
+<li>birch</li>
+<li>oak</li>
+</ul>
+</li>
+</ul>
+<p>Now, let's register 2 conditions for checking weekday</p>
+<pre><code class="language-ruby">...
+
+core.add_condition_pack :contains_day_of_week do
+  add_condition :friday
+    met? do |input, core, argument|
+      # Rememer how you registered .body parameter of input? It will be accessible in condition here!
+      input.body.include? "friday"
+    end
+  end
+
+  add_condition :tuesday
+    met? do |input, core, argument|
+      input.body.include? "tuesday"
+    end
+  end
+end
+</code></pre>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+What is an <code>argument</code> and why is there is core as one of the arguments of block? You can check more about that in conditions documentation page!
+</p>
+</div>
+<p>Alright, we registered 1 condition pack and 2 conditions inside of it. What to do now? Now, the fun part. On to creating routes!</p>
+<h2 id="adding-actual-routes-(the-fun-part)">Adding actual routes (the fun part)</h2>
+<p>Now, after registering input/output parameters and conditions, we can begin creating our routes.</p>
+<pre><code class="language-ruby">...
+
+core.router.configure do
+  on :contains_day_of_week :friday do
+    respond do
+      body "What, already?"
+    end
+  end
+
+  on :contains_day_of_week :tuesday do
+    respond do
+      body "Start of the week huh"
+    end
+  end
+end
+
+</code></pre>
+<p>As you can see, adding routes is pretty straight forward.</p>
+<p>You see that <code>body</code> over there? That <code>body</code> will be set into the output object. We registered output
+paremeter :body and it will be available here for usage, inside <code>respond</code> block.</p>
+<p><code>respond</code> accepts block of code which will be executed if router gets there after cheking in with conditions.</p>
+<p>In respond block you can actually do anything besides setting output parameters.</p>
+<p>You can make a database call, http request, save info into the file, anything.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+The respond block actually has more features than in this example. You can access input or core there.
+More about that - in the Respond block documentation page.
+</p>
+</div>
+<p>Ok, so we added 2 routes. By now you probably wondering about one thing...
+<strong>What happens if no route found for given input?</strong></p>
+<h2 id="default-response,-if-no-route-found">Default response, if no route found</h2>
+<p>Yes, the default response, which usually in bots looks like
+"Sorry, I did not understand you. Here is the list of phrases you can use..."</p>
+<pre><code class="language-ruby">...
+
+core.router.default_response do
+  body "Oh, it seems I did not understand you. Try again?"
+end
+</code></pre>
+<p>When Kanal can't find appropriate route with the used conditions, it would refer
+to the default response. It can contain the same code as in <code>respond</code> block.</p>
+<div class="callout warning"><p class="callout-title">ATTENTION</p>
+<p>
+Actually Kanal requires default response to be present! Without it, your code would not start
+and raise a runtime error asking you to provide default response.
+</p>
+</div><h2 id="what-to-do-next?">What to do next?</h2>
+<p>Ok, so now you have the core, registered parameters, conditions, routes... What's next?</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+If you are already in the know, you can utilize existing Kanal plugins, interfaces
+to create specific bots with specifics features, conditions, database, etc.</p>
+<p>But if you are reading this documentation first time -
+for the sake of example and learning by practice consider continuing reading.
+</p>
+</div>
+<p>Well, actually, for the just Kanal part, this is it.</p>
+<p>But of course you won't be able to build bots with just this! You need to somehow attach it to
+some kind of bot library or something...</p>
+<p>Well, by reading this shallow introduction you can create a simple cli bot.</p>
+<h2 id="creating-a-simple-cli-bot-(whole-code-example)">Creating a simple Cli bot (whole code example)</h2>
+<p>Here I will post the whole code you can simply copy,
+paste into file app.rb and run it in your terminal.</p>
+<div class="callout info"><p class="callout-title">NOTE</p>
+<p>
+This example is very simple and does not utilize all features of creating conditions
+or respond block, please refer to the appropriate pages for more info.</p>
+<p>(for example, you can create conditions with arguments and in routes specify which argument you expect, making the explicit conditions for each word like in this example obsolete and cumbersome)</p>
+<p>(or for another example, you can create nested routes!)
+</p>
+</div>
+<pre><code class="language-ruby"># app.rb
+require "kanal"
+
+core = Kanal::Core::Core.new
+
+core.register_input_parameter :body
+core.register_output_parameter :body
+
+# Mind this one, we register output parameter that we can set in the respond block
+# and utilize it later
+core.register_output_parameter :should_exit
+
+core.add_condition_pack :contains_word do
+  add_condition :hello
+    met? do |input, core, argument|
+      input.body.include? "hello"
+    end
+  end
+
+  add_condition :bye
+    met? do |input, core, argument|
+      input.body.include? "bye"
+    end
+  end
+end
+
+core.router.default_response do
+  body "I did not understand you... Please try again!"
+end
+
+core.router.configure do
+  on :contains :hello do
+    respond do
+      body "Hello to you to!"
+    end
+  end
+
+  on :contains :bye do
+    respond do
+      body "Bye bye! Cya later!"
+
+      should_exit true
+    end
+  end
+end
+
+puts "Starting bot."
+
+program_should_stop = false
+
+while !program_should_stop do
+  puts "Please enter your message:"
+
+  input = core.create_input
+  input.body = gets.chomp
+
+  output = core.router.create_output_for_input input
+
+  puts "Bot response:"
+  puts output.body
+
+  # As you can see we accessing the registered parameter here in output object
+  if output.should_exit == true
+    program_should_stop = true
+  end
+end
+
+puts "Bot stopped! Thank you for the conversation!"
+</code></pre>
+<pre><code class="language-sh">ruby app.rb
+</code></pre>
+
+            </div>
+            <div class='sidebar-right'>
+                <div class='page-nav' id='page-nav'>
+                    <p class='page-nav-header'>On this page</p>
+                    <ul>
+                        
+                        <li class='page-nav-level-1'>
+                            <a href='#welcome-to-kanal-documentation!'>Welcome to Kanal documentation!</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#installation'>Installation</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#basic-idea-of-kanal-and-how-it-works'>Basic idea of Kanal and how it works</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#getting-started'>Getting started</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#input,-output-and-what-are-the-parameters-of-those-objects'>Input, Output and what are the parameters of those Objects</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#input'>Input</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#output'>Output</a>
+                        </li>
+                        
+                        <li class='page-nav-level-3'>
+                            <a href='#parameters-for-input-and-output'>Parameters for input and output</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#conditions.-what-are-they?'>Conditions. What are they?</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#adding-actual-routes-(the-fun-part)'>Adding actual routes (the fun part)</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#default-response,-if-no-route-found'>Default response, if no route found</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#what-to-do-next?'>What to do next?</a>
+                        </li>
+                        
+                        <li class='page-nav-level-2'>
+                            <a href='#creating-a-simple-cli-bot-(whole-code-example)'>Creating a simple Cli bot (whole code example)</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class='wave-container'>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill-opacity="0.35"
+                        d="M0,192L60,213.3C120,235,240,277,360,277.3C480,277,600,235,720,192C840,149,960,107,1080,122.7C1200,139,1320,213,1380,250.7L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.5"
+                        d="M0,160L60,181.3C120,203,240,245,360,229.3C480,213,600,139,720,138.7C840,139,960,213,1080,229.3C1200,245,1320,203,1380,181.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                    <path fill-opacity="0.2"
+                        d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,186.7C840,203,960,181,1080,186.7C1200,192,1320,224,1380,240L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+                    </path>
+                </svg>
+                <p>Powered by <a href='https://cli.doctave.com' target='_blank'>Doctave</a></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/assets/katex.js?v=1671216925"></script>
+    <script type="text/javascript" src="/assets/mermaid.js?v=1671216925"></script>
+    <script type="text/javascript" src="/assets/elasticlunr.js?v=1671216925"></script>
+    <script type="text/javascript" src="/assets/prism.js?v=1671216925"></script>
+    <script type="text/javascript" src="/assets/doctave-app.js?v=1671216925"></script>
+
+    
+</body>
+
+</html>
